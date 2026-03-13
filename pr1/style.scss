@@ -1,0 +1,39 @@
+$main-border-color: aqua;
+$card-size: 250px;
+
+@function gap-size($multiplier) {
+  @return $multiplier * 20px;
+}
+
+.main {
+  border: 5px solid $main-border-color;
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+  display: flex;
+  gap: gap-size(1);
+  align-items: center;
+}
+
+.card {
+  width: $card-size;
+  height: $card-size;
+  object-fit: cover;
+}   
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}

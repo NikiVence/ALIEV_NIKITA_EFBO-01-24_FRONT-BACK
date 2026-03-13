@@ -1,0 +1,35 @@
+.main {
+  border: 5px solid;
+  border-color: aqua;
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.card {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.description {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/*# sourceMappingURL=style.css.map */
