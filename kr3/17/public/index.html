@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo PWA | Напоминания</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h1 style="text-align: center;">⏰ Todo PWA</h1>
+        <p style="text-align: center; color: #666;">С напоминаниями и откладыванием</p>
+        
+        <div class="card" style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>📝 Быстрая заметка</h3>
+            <form id="note-form" style="display: flex; gap: 10px;">
+                <input type="text" id="note-input" placeholder="Текст заметки..." style="flex: 1; padding: 10px;" required>
+                <button type="submit" style="padding: 10px 20px;">➕ Добавить</button>
+            </form>
+        </div>
+        
+        <div class="card" style="background: #f0f7ff; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <h3>⏰ Заметка с напоминанием</h3>
+            <form id="reminder-form">
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" id="reminder-text" placeholder="Текст напоминания..." style="flex: 2; padding: 10px;" required>
+                    <input type="datetime-local" id="reminder-time" style="flex: 1; padding: 10px;" required>
+                </div>
+                <button type="submit" style="width: 100%; background: #2ecc71;">🔔 Добавить с напоминанием</button>
+            </form>
+        </div>
+        
+        <h3>📋 Мои заметки</h3>
+        <ul id="notes-list" style="list-style: none; padding: 0;"></ul>
+        
+        <div style="margin-top: 20px; text-align: center; padding: 15px; background: #f5f5f5; border-radius: 10px;">
+            <button id="enable-push" class="button success" style="background: #2ecc71;">🔔 Включить уведомления</button>
+            <button id="disable-push" class="button error" style="background: #e74c3c; display: none;">🔕 Отключить уведомления</button>
+        </div>
+        
+        <div id="status" style="position: fixed; bottom: 20px; right: 20px; background: #2ecc71; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px;">
+            🟢 Подключено
+        </div>
+    </div>
+    
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>

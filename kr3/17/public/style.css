@@ -1,0 +1,142 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+input, input[type="datetime-local"] {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+input:focus, input[type="datetime-local"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+button {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.button.success {
+    background: #2ecc71;
+    color: white;
+}
+
+.button.error {
+    background: #e74c3c;
+    color: white;
+}
+
+.todo-item {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.todo-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.reminder-active {
+    color: #2ecc71;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.reminder-expired {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        border-radius: 15px;
+    }
+    
+    #reminder-form div {
+        flex-direction: column;
+    }
+    
+    input, input[type="datetime-local"], button {
+        width: 100%;
+    }
+}

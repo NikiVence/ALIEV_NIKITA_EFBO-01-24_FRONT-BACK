@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <title>Todo Offline | Менеджер задач с офлайн-доступом</title>
+    <meta name="description" content="Мощный менеджер задач с полной офлайн-поддержкой. Планируйте свои дела где угодно, даже без интернета!">
+    
+    <!-- ========== WEB APP MANIFEST ========== -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- ========== META-ТЕГИ ДЛЯ ANDROID ========== -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="application-name" content="Todo Offline">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- ========== META-ТЕГИ ДЛЯ iOS ========== -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Todo Offline">
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    
+    <!-- ========== ДЛЯ WINDOWS ========== -->
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- ========== FAVICONS ========== -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48x48.png">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    <!-- ========== CSS СТИЛИ ========== -->
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ========== META-ТЕГИ ДЛЯ СОЦСЕТЕЙ (Open Graph) ========== -->
+    <meta property="og:title" content="Todo Offline - Офлайн менеджер задач">
+    <meta property="og:description" content="Планируйте задачи даже без интернета">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="/icons/icon-512x512.png">
+    <meta property="og:url" content="https://your-domain.com">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Todo Offline">
+    <meta name="twitter:description" content="Офлайн менеджер задач">
+    <meta name="twitter:image" content="/icons/icon-512x512.png">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка приложения -->
+        <div class="header">
+            <h1>📋 Список дел</h1>
+            <p class="subtitle">Работает даже без интернета ✨</p>
+            <button id="install-btn" class="install-button" style="display: none;">
+                📲 Установить приложение
+            </button>
+        </div>
+
+        <!-- Форма добавления -->
+        <form id="todo-form" class="row">
+            <div class="col-9">
+                <input type="text" id="todo-input" placeholder="Купить хлеб, сделать зарядку..." required autocomplete="off">
+            </div>
+            <div class="col-3">
+                <button type="submit" class="button primary">➕ Добавить</button>
+            </div>
+        </form>
+
+        <!-- Статистика -->
+        <div id="stats" class="stats"></div>
+
+        <!-- Прогресс-бар -->
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+
+        <!-- Список задач -->
+        <ul id="todo-list"></ul>
+
+        <!-- Кнопка очистки выполненных -->
+        <button id="clear-completed" class="clear-btn" style="display: none;">
+            🗑 Очистить выполненные
+        </button>
+    </div>
+
+    <!-- Статус офлайн -->
+    <div id="offline-status" class="offline-badge">🟢 Онлайн</div>
+
+    <!-- Уведомление об установке -->
+    <div id="install-notification" class="install-notification" style="display: none;">
+        <div class="notification-content">
+            <span>📱 Установите приложение на рабочий стол</span>
+            <button id="close-notification">×</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    
+    <!-- Скрипт для отслеживания установки PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('✅ SW зарегистрирован:', reg.scope);
+                }).catch(err => {
+                    console.error('❌ Ошибка SW:', err);
+                });
+            });
+        }
+        
+        // Отслеживание установки PWA
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.getElementById('install-btn');
+            if (installBtn) {
+                installBtn.style.display = 'block';
+                installBtn.addEventListener('click', () => {
+                    installBtn.style.display = 'none';
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('Пользователь установил PWA');
+                        } else {
+                            console.log('Пользователь отказался от установки');
+                        }
+                        deferredPrompt = null;
+                    });
+                });
+            }
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ PWA установлено!');
+            const installBtn = document.getElementById('install-btn');
+            if (installBtn) installBtn.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

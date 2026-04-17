@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <title>Todo PWA | Офлайн менеджер задач</title>
+    <meta name="description" content="Прогрессивное веб-приложение для управления задачами с офлайн-доступом">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Мета-теги для мобильных устройств -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Todo PWA">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Иконки -->
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- App Shell - каркас приложения -->
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="container">
+                <h1>✅ Todo PWA</h1>
+                <p class="subtitle">Работает даже без интернета</p>
+            </div>
+        </header>
+        
+        <nav class="app-nav">
+            <div class="container">
+                <div class="tabs is-center">
+                    <button id="home-btn" class="tab active">📋 Задачи</button>
+                    <button id="about-btn" class="tab">ℹ️ О приложении</button>
+                    <button id="contact-btn" class="tab">📧 Контакты</button>
+                </div>
+            </div>
+        </nav>
+        
+        <main id="app-content" class="app-content">
+            <div class="container">
+                <div class="loader">Загрузка...</div>
+            </div>
+        </main>
+        
+        <footer class="app-footer">
+            <div class="container">
+                <p>© 2025 Todo PWA | Версия 2.0.0</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Статус офлайн -->
+    <div id="offline-status" class="offline-badge">🟢 Онлайн</div>
+    
+    <!-- Кнопка установки -->
+    <button id="install-btn" class="install-btn" style="display: none;">📲 Установить приложение</button>
+    
+    <script src="/app.js"></script>
+</body>
+</html>

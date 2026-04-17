@@ -1,0 +1,8 @@
+﻿{
+  "name": "Todo PWA with Reminders",
+  "short_name": "Todo PWA",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#667eea",
+  "background_color": "#ffffff"
+}
